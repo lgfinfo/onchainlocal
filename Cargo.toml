@@ -1,0 +1,38 @@
+[package]
+name = "onchainlocal"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+reqwest = { version = "0.11", features = ["json"] }
+anchor-client = "0.29.0"    
+anchor-cli = "0.29.0"
+solana-sdk = "1.17.0"
+solana-program="1.17.0"
+solana-client="1.17.0"
+lb_clmm = "0.1.1"
+serde = { version = "1.0", features = ["derive"] } # 序列化/反序列化库
+serde_json = "1.0"
+toml = "0.8.20" 
+anyhow = "1.0.97"
+bytemuck="1.22.0"
+#bytemuck_derive="1.9.3"
+bs58 = "0.5.1"
+lazy_static = "1.4"
+tokio = { version = "1.0", features = ["full"] }
+log = "0.4"
+env_logger = "0.11"
+bincode="1.3"
+spl-token = "4.0"
+futures="0.3.31"
+tracing="0.1"
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "1.0"
+rand = "0.8"
+spl-associated-token-account={ version = "2.0", features = ["no-entrypoint"] }
+spl-token-2022 = "0.9"
+# rusqlite = { version = "0.29", features = ["bundled"] }
+# parking_lot = "0.12"
+arrayref = "0.3.7"
+pyth-sdk-solana = "0.10.0"
+# sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite", "chrono"] }

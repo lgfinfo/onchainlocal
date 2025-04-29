@@ -1,0 +1,38 @@
+mint_config_type = "config"
+use_price_check = false
+use_simulation = false
+
+[api]
+url = "http://64.130.33.49:11000/token/hot"
+timeout_secs = 10
+diy_mints_open = true
+diy_mints = []
+forbidden_mints = []
+
+[bot]
+max_loop = 1000
+compute_unit_limit = 500000
+batch_size = 4
+max_concurrent_tasks = 50
+debug = true
+auto_lookup_table = false 
+
+[spam]
+process_delay = 200
+min_profit = 0
+
+[spam.compute_unit_price]
+from = 1000
+to = 500000
+count = 2
+strategy = "random"
+
+[wallet]
+keypair_path = "my_keypair.json"
+
+[rpc]
+urls = ["https://solana-rpc.publicnode.com","https://solana-mainnet.g.alchemy.com/v2/ugikxqJ1NVYpBIKk4XhT0Hpg1uQGnUpS"]
+
+[kamino_flashloan]
+enabled = false
+max_sol_amount = 1000

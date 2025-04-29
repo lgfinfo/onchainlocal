@@ -1,0 +1,206 @@
+[
+  {
+    "mint": "GkeUTuaFB4oZADaqiCo3yauHNx9SxUNn8euHptEEbonk",
+    "raydium_pool_list": [],
+    "meteora_dlmm_pool_list": [
+      "EqFY2f6pNsfXbmjFs2JEGovZqR9mBByQBSZPvFrMats1",
+      "Fsb7kScDsQ28VoTyqZZLbLuUAzNZz8DaJgcGXJQTSuot",
+      "GdjocPtWCMDgB2X3SC7X2HEag8pcAGxXTwH13vKJwsQF",
+      "26oSTHn17siegiqjC2ty3DjV86oG7yjxRnuzrNTbLojo",
+      "GrYZEXVPFkXWYmipDJtyY9EVanmc6JDtBsD5NApxdABm",
+      "5G4FAUX7jbfgiLEbQUkXAmSJtFb325tLAsffDwFNKntN"
+    ],
+    "raydium_cp_pool_list": [
+      "8HZdEbzBX7sZ7eQMod29fdVg3AzQgaQpWMcMyotA9gzY",
+      "6KWBvaffFKpDoMAtERcav6rPP4SmGXspvoe4kwzbi6sy"
+    ],
+    "pump_pool_list": [],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "fRfKGCriduzDwSudCwpL7ySCEiboNuryhZDVJtr1a1C",
+    "raydium_pool_list": [],
+    "meteora_dlmm_pool_list": [
+      "9ud9nbgQQ3VazRmuhvQsZzmWhR1NpnQt8XgkRREw1ZR7",
+      "AHLou1naWrRdA8UVysaHZeFbDfY4V1yy6sQ5T99BpaUB",
+      "GyFBg8gbhMPr9KU6zUTk1cDbiRPZNrcB7DbKs4SbkSzB",
+      "84jrEKwLwhaA6yqevVfsu4CdBggveYB5L8t1x4emGLfj",
+      "7amQLcBtTemJ6GfBaufKDFBCuXaZsBLkSyBXjcuULTKB",
+      "GuMdi5FqCXpCUj64E2Zy3GFdyegmtTvjyKCqQ2URnPCJ"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "9PR7nCP9DpcUotnDPVLUBUZKu5WAYkwrCUx9wDnSpump",
+    "raydium_pool_list": [
+      "DmAsjXoceoL5vTKZbYpTpXPo7MKm16FMfNMm3PJFiUha"
+    ],
+    "meteora_dlmm_pool_list": [
+      "DgVFJa6mVEC4qKgH9rL53NRbXHdbnDa17rFtN9JtXwCt",
+      "6ZxHSCuB2JNeySqz8ygqeQKoQqTw8JzK3evQG9wXhzM7",
+      "3i64er6V8TqhCEvpdaLZfFqVi7bqDwcd7SGAHvWDPZPj"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "CjqxraDuTMEcfhdqY8qEaMY43icdBrkt3EXciNVpump",
+    "raydium_pool_list": [],
+    "meteora_dlmm_pool_list": [
+      "DXEbdhkQu91owdAb7hr8eBCzzDFtEPw15puLrVGqGbr4",
+      "FNzojAMY6tykqMj5J2fxCpesDSouDYpZXaJfkX82cmJv",
+      "2kHJZVEjuP4KwuXRLB9cbiQ89iDpySRUBBRQsGpkokQk",
+      "9Zwu7xdxFwCtRgXSitb2SGxzJobkQMtuFKCAkiHuxgUe",
+      "5tkim97Wcza2En96XTjgwQAywmxDBgcsLBrfiArNjS6y",
+      "8BUdrLEmJcpGTRRsxiN5pJoufKbJmRrwgW6jAMJbd9oy",
+      "J5QjAxT6nz3SZCccNRxeCk2X95VULFyqwmciDNEUM8By"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [
+      "Py2ZC6gPfcYqaejPepW1mPUPvgDFUAM6ivzJBqWGfRa"
+    ],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "9wK8yN6iz1ie5kEJkvZCTxyN1x5sTdNfx8yeMY8Ebonk",
+    "raydium_pool_list": [
+      "J333LZ5UhEjwxb64dcD756viUFXr164dVNxQpXuMPH9V"
+    ],
+    "meteora_dlmm_pool_list": [
+      "9kXysT39TsPmsgz4bPkVdZwbB4ANaBEredkywRy3Lg2F",
+      "J1TWx1nqLbr2eXHSJuW4Bw2dd5WyLgZ4WihYpcF6txZp",
+      "8iUmp62YEoqy8a7atYptPkXzAtrhgYo4HNy2BRXgP7HV",
+      "482KSsNXHETnh8xyXRjF9KSRzQJbBeYgtMiY1TrGsVoh"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "CDBdbNqmrLu1PcgjrFG52yxg71QnFhBZcUE6PSFdbonk",
+    "raydium_pool_list": [
+      "Hv1i8WrxEhL8djBuxhFGJxXTt4qEupywWKFSgGB5A7w6"
+    ],
+    "meteora_dlmm_pool_list": [
+      "7vydrGZMgGDgUvnjyoXN3y9xPhvds594Mw5PzmsHiaHU",
+      "8JmZPyfDB3xTbPqoVp9BpZeWJ8YnGRe98tMjQUqKskby",
+      "2UqGtSVmU4UHPFtAJeeQG3pTzKSe8RK2fFhaWgBMYeKm",
+      "Fj8fQh4VJb5pE7SiuTXsvMxs42CnQ6pLi5DqN73FkS28",
+      "HWnr8muXmSs8XHtLVhN5MkASHCyJD6NrokAmYkKxmLTU",
+      "6RtAX8DjzkhEbuBEMjtzqZ1K9FtAcS7kCJXBhcRmVjv9"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "5UUH9RTDiSpq6HKS6bp4NdU9PNJpXRXuiw6ShBTBhgH2",
+    "raydium_pool_list": [],
+    "meteora_dlmm_pool_list": [
+      "Cgnuirsk5dQ9Ka1Grnru7J8YW1sYncYUjiXvYxT7G4iZ",
+      "GF9MHYopv9L4jp9MgFG35Mht8Ucq4vpxDmSFNtw4dgJZ",
+      "6yUh6uJ7UpCGQXSXkrgQyFLDEcs61YXabVar34ia4p1L",
+      "H5sVUKA5jqTyBCVC3BvVTE7s72MSmdf75hCKHeKpaH5T",
+      "A7tnuKbVLwgdrZ49p6sWyepDjFHFzToEEFdyGrn5jun5"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [
+      "4w2cysotX6czaUGmmWg13hDpY4QEMG2CzeKYEQyK9Ama"
+    ],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "Hax9LTgsQkze1YFychnBLtFH8gYbQKtKfWKKg2SP6gdD",
+    "raydium_pool_list": [
+      "99a2qtfLAxv9LVhKesjEawjKy8Pwb4cypC5ccuCB4VUS"
+    ],
+    "meteora_dlmm_pool_list": [
+      "H38cWx4gbzfcHZWaiaVxqh8xSjxw55AHougx4e2ox4yK",
+      "2mWj3MpMnYJYjwyss9aoWBi3iaXZshu4m2ZmDsmQdseR"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "63XvK8XogMN6dwe5KZ9X36ku1Ep42A7Gn9tNZUr5pump",
+    "raydium_pool_list": [],
+    "meteora_dlmm_pool_list": [
+      "3i7QXMhPeDsSV8DFj8zZk9Fda7qUG3Kk4KHxVbG3ZemL"
+    ],
+    "raydium_cp_pool_list": [],
+    "pump_pool_list": [
+      "Evx2JMFPhM79cvzWDXkBjugvqchYH9Tcf6fB172GmkZV"
+    ],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  },
+  {
+    "mint": "C3DwDjT17gDvvCYC2nsdGHxDHVmQRdhKfpAdqQ29pump",
+    "raydium_pool_list": [],
+    "meteora_dlmm_pool_list": [
+      "AjZpbEpNHncA4xujAXvzjZVVTMq9TXNePYnNRHreN7uG",
+      "66wuLfiPFkuwNtvt3YDBBGTsN8wP65sRJU9sTa7FwmdP",
+      "BP1gTaQGxQbaj6riP29BR59yN4SURuyAvj4sWRV8WPdp"
+    ],
+    "raydium_cp_pool_list": [
+      "4WaiKXgA2c4vkfB4wZQALrNYpDPXC7S58rLeSwzYQv6U"
+    ],
+    "pump_pool_list": [
+      "D6Rgz1JG2syjsTXGaSAZ39cLffWL4TfabEAAnJHGRrZC"
+    ],
+    "whirlpool_pool_list": [],
+    "raydium_clmm_pool_list": [],
+    "lookup_table_accounts": [
+      "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC"
+    ],
+    "process_delay": 200
+  }
+]

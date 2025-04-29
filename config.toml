@@ -1,0 +1,195 @@
+[routing]
+[[routing.mint_config_list]]
+mint = "5UUH9RTDiSpq6HKS6bp4NdU9PNJpXRXuiw6ShBTBhgH2"
+pump_pool_list = [
+  "4w2cysotX6czaUGmmWg13hDpY4QEMG2CzeKYEQyK9Ama"
+]
+
+# This is the Raydium V4 AMM Pools
+raydium_pool_list = []
+
+# This is the Raydium CPMM Pools
+raydium_cp_pool_list = []
+
+# This is the Raydium CLMM(Centralized Liquidity) Pools
+raydium_clmm_pool_list = [
+]
+
+whirlpool_pool_list = []
+
+meteora_dlmm_pool_list = [
+  "GF9MHYopv9L4jp9MgFG35Mht8Ucq4vpxDmSFNtw4dgJZ"
+]
+lookup_table_accounts = [
+  "GaWsqjTpVpbPomQJ3PYBhTvQmMCPxPCQYi6y5z2z9byw",
+  "8d2S46EkfbF1Dy61MrwtvkKL8dfTMFCmchoDr94ydJhb",
+  "FcoThXoZbzZTNWhkZrZ242yVirFk938xqfRj9Z6WrsXS",
+  "Cj8Zbmt8enRR6YLF2zM8ZVcSEMCNfw94mLK4pqY7AjxB",
+  "Hf5qvua99VWvPQAXYsFtx7BhsVthNi13vP2rGAe8BtsX",
+  "2WKbZ6BdGz6PtzyNgpzFaQoMtAWZ7Acg2TYsZ5az1G8n",
+  "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC",
+  "F3drNeR4cBfKC8mnT1UC62fF62VoWvLy2ND3xzrGTVDr",
+  "D3GscHmba7bijyL62DkaEdwbHfYHDZEa3ayrchKg6EYG",
+  "GenGaDCU7M1bB6HmcWNetqGAZ8rNTUDJ5p6f4ussRFAZ",
+  "J3FghVUXE4xhCDFVMh6PWvi7cBNVDB1X8oQpo8fwFFED",
+  "65JhMQU8iSXUjhYNVTQ9AXZ447RttFpMbzzRXhz84n9U",
+  "CwcjGGiKVceXTupAJiA8WdjGGvhD2QYNcLpGvzBi9Dtx" ,
+  "EyvFy1WSwfcyHgnaCskLv8jx9A4rm2TTL72idzV11icj"
+]
+process_delay = 333
+
+[[routing.mint_config_list]]
+mint = "BSHPk7MtpEbmnwwrXNur56JdXTCNhAKmThQwBoZepump"
+pump_pool_list = [
+  "78NVmyxBMB5kNybA2tcKii6ZDzd1AKdrDLAjZKYBiX1s"
+]
+
+# This is the Raydium V4 AMM Pools
+raydium_pool_list = []
+
+# This is the Raydium CPMM Pools
+raydium_cp_pool_list = []
+
+# This is the Raydium CLMM(Centralized Liquidity) Pools
+raydium_clmm_pool_list = [
+]
+
+whirlpool_pool_list = []
+
+meteora_dlmm_pool_list = [
+  "AQYy7jW7KXYZmmGnBpcV4TmpVNn8SqUBUpCeUaJCA3Yy"
+]
+lookup_table_accounts = [
+  "8d2S46EkfbF1Dy61MrwtvkKL8dfTMFCmchoDr94ydJhb",
+  "FcoThXoZbzZTNWhkZrZ242yVirFk938xqfRj9Z6WrsXS",
+  "Cj8Zbmt8enRR6YLF2zM8ZVcSEMCNfw94mLK4pqY7AjxB",
+  "Hf5qvua99VWvPQAXYsFtx7BhsVthNi13vP2rGAe8BtsX",
+  "2WKbZ6BdGz6PtzyNgpzFaQoMtAWZ7Acg2TYsZ5az1G8n",
+  "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC",
+  "F3drNeR4cBfKC8mnT1UC62fF62VoWvLy2ND3xzrGTVDr",
+  "D3GscHmba7bijyL62DkaEdwbHfYHDZEa3ayrchKg6EYG",
+  "GenGaDCU7M1bB6HmcWNetqGAZ8rNTUDJ5p6f4ussRFAZ",
+  "J3FghVUXE4xhCDFVMh6PWvi7cBNVDB1X8oQpo8fwFFED",
+  "65JhMQU8iSXUjhYNVTQ9AXZ447RttFpMbzzRXhz84n9U",
+  "CwcjGGiKVceXTupAJiA8WdjGGvhD2QYNcLpGvzBi9Dtx" ,
+  "EyvFy1WSwfcyHgnaCskLv8jx9A4rm2TTL72idzV11icj"   
+]
+process_delay = 333
+
+[[routing.mint_config_list]]
+mint = "qRUZaCpgxaRH1s5V6opjPA6Hnpv5BM37LqkDBw7pump"
+pump_pool_list = [
+  "ANY6m193bZQppKPggKS8NN4nF9cq7YJHroYPdXws9G5k"
+]
+
+# This is the Raydium V4 AMM Pools
+raydium_pool_list = [
+]
+
+# This is the Raydium CPMM Pools
+raydium_cp_pool_list = []
+
+# This is the Raydium CLMM(Centralized Liquidity) Pools
+raydium_clmm_pool_list = [
+]
+
+whirlpool_pool_list = []
+
+meteora_dlmm_pool_list = [
+  "H1mUBMpi9MX2wFd73jNtjrR6t2Shs5nCmvTqMsaAKusR"
+]
+lookup_table_accounts = [
+  "8d2S46EkfbF1Dy61MrwtvkKL8dfTMFCmchoDr94ydJhb",
+  "FcoThXoZbzZTNWhkZrZ242yVirFk938xqfRj9Z6WrsXS",
+  "Cj8Zbmt8enRR6YLF2zM8ZVcSEMCNfw94mLK4pqY7AjxB",
+  "Hf5qvua99VWvPQAXYsFtx7BhsVthNi13vP2rGAe8BtsX",
+  "2WKbZ6BdGz6PtzyNgpzFaQoMtAWZ7Acg2TYsZ5az1G8n",
+  "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC",
+  "F3drNeR4cBfKC8mnT1UC62fF62VoWvLy2ND3xzrGTVDr",
+  "D3GscHmba7bijyL62DkaEdwbHfYHDZEa3ayrchKg6EYG",
+  "GenGaDCU7M1bB6HmcWNetqGAZ8rNTUDJ5p6f4ussRFAZ",
+  "J3FghVUXE4xhCDFVMh6PWvi7cBNVDB1X8oQpo8fwFFED",
+  "65JhMQU8iSXUjhYNVTQ9AXZ447RttFpMbzzRXhz84n9U",
+  "CwcjGGiKVceXTupAJiA8WdjGGvhD2QYNcLpGvzBi9Dtx" ,
+  "EyvFy1WSwfcyHgnaCskLv8jx9A4rm2TTL72idzV11icj" 
+]
+process_delay = 333
+
+[[routing.mint_config_list]]
+mint = "DitHyRMQiSDhn5cnKMJV2CDDt6sVct96YrECiM49pump"
+pump_pool_list = [
+  "Gj5t6KjTw3gWW7SrMHEi1ojCkaYHyvLwb17gktf96HNH"
+]
+
+# This is the Raydium V4 AMM Pools
+raydium_pool_list = [
+]
+
+# This is the Raydium CPMM Pools
+raydium_cp_pool_list = []
+
+# This is the Raydium CLMM(Centralized Liquidity) Pools
+raydium_clmm_pool_list = [
+]
+
+whirlpool_pool_list = []
+
+meteora_dlmm_pool_list = [
+  "3ELd7jBF7scUQupEWrex2wbxsX49bJGizzYZZnzh8HpL"
+]
+lookup_table_accounts = [
+  "8d2S46EkfbF1Dy61MrwtvkKL8dfTMFCmchoDr94ydJhb",
+  "FcoThXoZbzZTNWhkZrZ242yVirFk938xqfRj9Z6WrsXS",
+  "Cj8Zbmt8enRR6YLF2zM8ZVcSEMCNfw94mLK4pqY7AjxB",
+  "Hf5qvua99VWvPQAXYsFtx7BhsVthNi13vP2rGAe8BtsX",
+  "2WKbZ6BdGz6PtzyNgpzFaQoMtAWZ7Acg2TYsZ5az1G8n",
+  "4sKLJ1Qoudh8PJyqBeuKocYdsZvxTcRShUt9aKqwhgvC",
+  "F3drNeR4cBfKC8mnT1UC62fF62VoWvLy2ND3xzrGTVDr",
+  "D3GscHmba7bijyL62DkaEdwbHfYHDZEa3ayrchKg6EYG",
+  "GenGaDCU7M1bB6HmcWNetqGAZ8rNTUDJ5p6f4ussRFAZ",
+  "J3FghVUXE4xhCDFVMh6PWvi7cBNVDB1X8oQpo8fwFFED",
+  "65JhMQU8iSXUjhYNVTQ9AXZ447RttFpMbzzRXhz84n9U",
+  "CwcjGGiKVceXTupAJiA8WdjGGvhD2QYNcLpGvzBi9Dtx" ,
+  "EyvFy1WSwfcyHgnaCskLv8jx9A4rm2TTL72idzV11icj"
+]
+process_delay = 333
+
+[rpc]
+url = "http://fra.rpc.orbitflare.com?api_key=ORBIT-GWNKCV-541373-022116"
+
+[spam]
+enabled = true
+sending_rpc_urls = [
+  "http://fra.rpc.orbitflare.com?api_key=ORBIT-GWNKCV-541373-022116",
+  "http://fra.rpc.onyxnodes.com:8899"
+]
+compute_unit_price = { strategy = "Random", from = 12222, to = 88888, count = 1 }
+max_retries = 10 # Optional
+enable_simple_send = false # You should only set this to true if your sending rpc doesn't work with the default config.
+
+[jito]
+enabled = false
+block_engine_urls = [
+  "https://ny.mainnet.block-engine.jito.wtf/api/v1",
+  "https://tokyo.mainnet.block-engine.jito.wtf/api/v1",
+  "https://slc.mainnet.block-engine.jito.wtf/api/v1",
+  "https://amsterdam.mainnet.block-engine.jito.wtf/api/v1",
+  "https://frankfurt.mainnet.block-engine.jito.wtf/api/v1",
+]
+uuid = "" # Optional
+ip_addresses = [] # Optional. You should only set this when you have multiple IPs. Support single IP or CIDR format like "192.168.1.0/24"
+
+[jito.tip_config]
+strategy = "Random" # Random/Linear/Exponential
+from = 10000
+to = 100000
+count = 3 # This configs how many different tips to generate. All the tx will be send out together.
+
+[kamino_flashloan]
+enabled = false
+
+[bot]
+compute_unit_limit = 330_000 # Recommand at least 300_000 if you have dlmm, and at least 250_000 if not. Add 80000 more if you use kamino.
+merge_mints = true # Send all the mints in the same tx
+
+[wallet]

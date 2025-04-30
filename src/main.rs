@@ -17,6 +17,7 @@ async fn main() -> Result<(), BotError> {
     
     let context = initialize_context().await?;
     let mint_list = load_mint_list(&context).await?;
+
     let token_pools = pull_token_pools(&context,&mint_list).await?;
     run_bot(&context,&token_pools).await?;
 

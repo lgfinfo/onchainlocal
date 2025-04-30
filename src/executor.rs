@@ -1,10 +1,8 @@
 use solana_sdk::{
     address_lookup_table::AddressLookupTableAccount,
-    address_lookup_table::state::AddressLookupTable, 
     compute_budget::ComputeBudgetInstruction,
     message::{v0::Message, VersionedMessage},
     pubkey::Pubkey,
-    signature::Keypair,
     signature::Signer,
     transaction::VersionedTransaction,
     commitment_config::CommitmentConfig,
@@ -20,14 +18,13 @@ use std::io::Write;
 use std::collections::HashSet;
 use std::fs::OpenOptions;
 use crate::{
-    error::BotError,
-    utils::{calculate_dynamic_priority_fee,extend_loan_end,extend_loan_start},
-    generate::generate_onchain_swap_multiple_mints_instruction_v4,
-    shared_context::Context
+    config::MintConfig, error::BotError, generate::generate_onchain_swap_multiple_mints_instruction_v4, shared_context::Context, utils::{calculate_dynamic_priority_fee,extend_loan_end,extend_loan_start}
 };
 use solana_program::address_lookup_table::instruction::{create_lookup_table, extend_lookup_table};
 use crate::pools::MintPoolData;
 use std::time::Instant;
+use moka::sync::Cache;
+
 /// 处理代币池，生成指令并执行交易
 pub async fn run_bot(
     context: &Arc<Context>,
@@ -36,6 +33,14 @@ pub async fn run_bot(
     let semaphore=Arc::new(Semaphore::new(context.wali_config.bot.max_concurrent_tasks));
     let (tx, mut rx) = mpsc::channel(token_pools.len()); // 用于收集指令组
     let mut handles = vec![];
+    let cache: Arc<Cache<String, Vec<u64>>> = Arc::new(Cache::new(500));
+    let context_clone = context.clone();
+    let mint_address_set: HashSet<String> = token_pools.iter().map(|(mint, _, _)| mint.to_string()).collect();
+    let cache_for_update = Arc::clone(&cache);
+
+    tokio::spawn(async move {
+        compute_price_refresher(&context_clone,&cache_for_update, mint_address_set.into_iter().collect()).await;
+    });
 
     // 并行生成指令
     for chunk in token_pools.chunks(context.wali_config.bot.batch_size) {
@@ -47,7 +52,6 @@ pub async fn run_bot(
 
         let handle = task::spawn(async move {
             let mut instruction_groups = vec![];
-
             let instructions = generate_instructions(&chunk.iter().map(|(_,mint_pool_data, _)| mint_pool_data).collect::<Vec<_>>(), &context).await?;
             let mut lookup_table_accounts_list:Vec<AddressLookupTableAccount> = vec![];
             let mut group_instruction_key=String::new();
@@ -95,7 +99,7 @@ pub async fn run_bot(
         min_context_slot: None,
     };
 
-
+    let cache_for_read = Arc::clone(&cache);
     // 处理交易
     let mut i = 0;
     loop {
@@ -103,45 +107,42 @@ pub async fn run_bot(
         info!("捕获的 instruction_groups 总数: {}", all_instruction_groups.len());
         for (mint, instructions, lookup_table_accounts) in &all_instruction_groups {
             info!("处理 mint: {}", mint);
-            match optimize_and_build_transaction_with_alt(&context,&mint, instructions, &lookup_table_accounts).await {
-                Ok(tx) => {
-                    let serialized = bincode::serialize(&tx).expect("序列化交易失败");
-                    info!("交易大小: {} 字节", serialized.len());
-                    if serialized.len() <= 10{
-                        if context.wali_config.use_simulation {
-                            let tx_clone = tx.clone();
-                            let sim_result = context.rpc.call(move |client| 
-                                client.simulate_transaction(&tx_clone).map_err(|e| BotError::Instruction(e.to_string())));
-                            match sim_result.await {
-                                Ok(response) => info!("模拟结果: {:?}", response),
-                                Err(e) => warn!("模拟失败: {:?}", e),
+            let mut attempts=0;
+            let mut instructions= instructions.clone();
+            while attempts<context.wali_config.spam.compute_unit_price.count{
+                match build_transaction(&cache_for_read,&attempts,&context,&mint, &mut instructions, &lookup_table_accounts).await {
+                    Ok(tx) => {
+                        let serialized = bincode::serialize(&tx).expect("序列化交易失败");
+                        info!("交易大小: {} 字节", serialized.len());
+                        if serialized.len() <= 1232{
+                            if context.wali_config.use_simulation {
+                                let tx_clone = tx.clone();
+                                let sim_result = context.rpc.call(move |client| 
+                                    client.simulate_transaction(&tx_clone).map_err(|e| BotError::Instruction(e.to_string())));
+                                match sim_result.await {
+                                    Ok(response) => info!("模拟结果: {:?}", response),
+                                    Err(e) => warn!("模拟失败: {:?}", e),
+                                }
                             }
-                        }
-                        let mut attempts=0;
-                        while attempts<context.wali_config.spam.compute_unit_price.count{
-                            attempts+=1;
-                            match context.rpc.send_transaction_with_config(tx.clone(), tx_config.clone()).await {
+
+                            match context.rpc.send_transaction_with_config(tx, tx_config.clone()).await {
                                 Ok(tx_signature) => {
                                     info!("交易成功: mint={}, signature={}", mint, tx_signature);
-                                    if context.wali_config.spam.process_delay>0 {
-                                        // 处理延迟
-                                        info!("等待 {} 毫秒", context.wali_config.spam.process_delay);
-                                        tokio::time::sleep(tokio::time::Duration::from_millis(context.wali_config.spam.process_delay)).await;
-                                    }
                                 }
                                 Err(e) => {
                                     warn!("交易失败: mint={}, error={}", mint, e);
-                                    // tokio::time::sleep(tokio::time::Duration::from_millis(context.)).await;
                                 }
                             }
                             
                         }
+                    },
+                    Err(e) => {
+                        warn!("构建交易失败: mint={}, error={}", mint, e.to_string());
                     }
                 }
-                Err(e) => {
-                    warn!("构建交易失败: mint={}, error={}", mint, e.to_string());
-                }
-            }
+                attempts+=1;
+                tokio::time::sleep(tokio::time::Duration::from_millis(context.wali_config.spam.process_delay)).await;
+            }   
         }
         
         if i > context.wali_config.bot.max_loop&&context.wali_config.bot.max_loop!=0 {
@@ -161,18 +162,7 @@ pub async fn generate_instructions(
 
     let compute_unit_limit = context.wali_config.bot.compute_unit_limit;
 
-    let compute_unit_price = calculate_dynamic_priority_fee(
-        &context.rpc,
-        &[token_pool[0].mint],
-        context.wali_config.bot.batch_size,
-        context.wali_config.spam.compute_unit_price.to,
-        context.wali_config.spam.compute_unit_price.from,
-    )
-    .await
-    .map_err(|e| BotError::Rpc(format!("计算优先级费用失败: {}", e)))?;
-
     instructions.push(ComputeBudgetInstruction::set_compute_unit_limit(compute_unit_limit));
-    instructions.push(ComputeBudgetInstruction::set_compute_unit_price(compute_unit_price[0]));
     if context.wali_config.kamino_flashloan.enabled {
         extend_loan_start(&mut instructions,&context).await;
     }
@@ -189,15 +179,31 @@ pub async fn generate_instructions(
 }
 
 /// 优化并构建交易，使用地址查找表（ALT）
-pub async fn optimize_and_build_transaction_with_alt(
+pub async fn build_transaction(
+    cahce:&Arc<Cache<String, Vec<u64>>>,
+    attempts:&u64,
     context: &Context,
     mint:&String,
-    instructions: &[Instruction],
+    instructions: &mut Vec<Instruction>,
     address_lookup_table_accounts: &Vec<AddressLookupTableAccount>,
 ) -> Result<VersionedTransaction, BotError> {
-    info!("开始构建交易...");
-    let price= get_cached_price(context, mint);
-    info!("当前价格:{}",price);
+    info!("开始为mint:{}构建交易...",mint.to_string());
+    let price= match cahce.get(&mint.to_string()){
+        Some(price) => price.clone(),
+        None => {
+            calculate_dynamic_priority_fee(
+                &context.rpc,
+                &mint.to_string().split("|").map(|s| s.to_string().parse().unwrap()).collect::<Vec<Pubkey>>(),
+                context.wali_config.spam.compute_unit_price.count as usize,
+                context.wali_config.spam.compute_unit_price.to,
+                context.wali_config.spam.compute_unit_price.from,
+            )
+            .await
+            .map_err(|e| BotError::Rpc(format!("计算优先级费用失败: {}:{}",mint, e))).unwrap()
+        }
+    };
+    instructions.insert(1,ComputeBudgetInstruction::set_compute_unit_price(price[attempts.clone() as usize]));
+    info!("使用小费:{}: {:#?}",mint, price[attempts.clone() as usize]);
     // 创建交易
     let blockhash = context.rpc.get_latest_blockhash()
         .await
@@ -207,7 +213,9 @@ pub async fn optimize_and_build_transaction_with_alt(
     let versioned_message = VersionedMessage::V0(message);
     let tx = VersionedTransaction::try_new(versioned_message, &[&context.payer_rc])
         .map_err(|e| BotError::Transaction(format!("创建交易失败: {}", e)))?;
-    debug_transaction(&tx);
+    if context.wali_config.bot.debug {
+        debug_transaction(&tx);
+    }
     Ok(tx)
 }
 
@@ -322,47 +330,40 @@ fn save_lookup_table_to_csv(lookup_table_key: &Pubkey, csv_file_path: &str) -> R
     Ok(())
 }
 
-async fn compute_price_refresher(
-    context: &Context,
+pub async fn compute_price_refresher(
+    context: &Arc<Context>,
+    cache: &Arc<Cache<String, Vec<u64>>>,
     address_mint:Vec<String>,
 ) {
-    let cache_ttl = Duration::from_secs(30);
     loop {
         for mint in address_mint.iter() {
-            let cached = context.price_cache.lock().unwrap().get(mint)
-                .filter(|(_, time)| time.elapsed() < cache_ttl);
-            if cached.is_none() {
-                let compute_unit_price = calculate_dynamic_priority_fee(
-                    &context.rpc,
-                    &[mint.parse().unwrap()],
-                    context.wali_config.rpc.urls.len(),
-                    context.wali_config.spam.compute_unit_price.to,
-                    context.wali_config.spam.compute_unit_price.from,
-                )
-                .await
-                .map_err(|e| BotError::Rpc(format!("计算优先级费用失败: {}:{}",mint, e)));
+            // 为了解决临时值在借用期间被丢弃的问题，将读取锁的结果绑定到一个变量上
+            let mint_address=mint.split("|").map(|s| s.to_string().parse().unwrap()).collect::<Vec<Pubkey>>();
+            info!("开始计算优先级费用: {:#?}", mint_address);
+            let compute_unit_price = calculate_dynamic_priority_fee(
+                &context.rpc,
+                &mint_address,
+                context.wali_config.spam.compute_unit_price.count as usize,
+                context.wali_config.spam.compute_unit_price.to,
+                context.wali_config.spam.compute_unit_price.from,
+            )
+            .await
+            .map_err(|e| BotError::Rpc(format!("计算优先级费用失败: {}:{}",mint, e)));
 
-                match compute_unit_price {
-                    Ok(price) => {
-                        let mut cache = context.price_cache.write().unwrap();
-                        cache.insert(mint.clone(), (price, Instant::now()));
-                        info!("{} 更新缓存价格: {}", mint, price[0]);
-                    },
-                    Err(e) => {
-                        warn!("价格更新失败: {}", e);
-                        continue;
-                    },
-                    _ => continue,
+            match compute_unit_price {
+                Ok(price) => {
+                    // 插入新的价格和时间戳
+                    cache.insert(mint.clone(), price);
+                },
+                Err(e) => {
+                    warn!("价格更新失败: {}", e);
+                    continue;
                 }
             }
+            
         }
         tokio::time::sleep(Duration::from_secs(10)).await;
     }
-}
-
-async fn get_cached_price(context: &Context, mint: &str) -> Option<Vec<u64>> {
-    let cache_read  = context.price_cache.read().unwrap();
-    cache_read.get(mint).map(|(price, _)| price.clone())
 }
 // async fn deactivate_lookup_table(
 //     context: &Context,

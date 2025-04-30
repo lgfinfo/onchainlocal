@@ -3,11 +3,11 @@ use solana_sdk::{
     signature::{read_keypair_file, Keypair,Signer},
 };
 use spl_associated_token_account::get_associated_token_address;
-use std::sync::{Arc,RwLock};
+use std::sync::{Arc,Mutex};
 use std::str::FromStr;
 
 use crate::{
-    config::{self, MintConfig, },
+    config::{self, MintConfig},
     wali_config::Config as ConfigJson,
     constants,
     error::BotError,
@@ -36,7 +36,6 @@ pub async fn initialize_context() -> Result<Arc<Context>, BotError> {
         wallet_sol_account,
         payer_rc,
         rpc,
-        Arc::new(RwLock::new(HashMap::new())),
     )))
 }
 

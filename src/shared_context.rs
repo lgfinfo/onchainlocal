@@ -4,7 +4,7 @@ use solana_sdk::{
 };
 use std::time::Instant;
 use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
+use std::sync::{Arc, Mutex};
 use crate::{
     config::Config,
     wali_config::Config as ConfigJson,
@@ -19,8 +19,6 @@ pub struct Context {
     pub wallet_sol_account: Pubkey,
     pub payer_rc: Arc<Keypair>,
     pub rpc: RpcManager,
-    //  let cache: Arc<RwLock<HashMap<String, String>>> = Arc::new(RwLock::new(HashMap::new()));
-    pub price_cache: Arc<RwLock<HashMap<String, (Vec<u64>, Instant)>>>,
 }
 
 impl Context {
@@ -31,15 +29,13 @@ impl Context {
         wallet_sol_account: Pubkey,
         payer_rc: Arc<Keypair>,
         rpc: RpcManager,
-        price_cache: Arc<RwLock<HashMap<String, (Vec<u64>, Instant)>>>,
     ) -> Self {
         Self {
             config,
             wali_config,
             wallet_sol_account,
             payer_rc,
-            rpc,
-            price_cache
+            rpc        
         }
     }
 }

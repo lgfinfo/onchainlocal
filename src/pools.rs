@@ -1,7 +1,6 @@
 use crate::constants::SOL_MINT;
 use solana_program::pubkey::Pubkey;
 use std::str::FromStr;
-
 #[derive(Debug, Clone)]
 pub struct RaydiumPool {
     pub pool: Pubkey,

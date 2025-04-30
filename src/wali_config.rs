@@ -21,6 +21,7 @@ pub struct BotConfig {
     pub max_concurrent_tasks: usize,
     pub debug: bool,
     pub auto_lookup_table: bool,
+    pub mint_max_pool: usize,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -147,6 +148,7 @@ impl Default for Config {
                 max_concurrent_tasks: 50,
                 debug: false,
                 auto_lookup_table:false,
+                mint_max_pool:4,
             },
             spam: SpamConfig {
                 compute_unit_price: ComputeUnitPrice {

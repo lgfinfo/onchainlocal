@@ -29,6 +29,7 @@ use solana_sdk::{
     address_lookup_table::AddressLookupTableAccount,
     address_lookup_table::state::AddressLookupTable,
 };
+use crate::utils::get_or_create_ata_address;
 
 pub fn generate_onchain_swap_multiple_mints_instruction_v4(
     context: &Context,
@@ -66,6 +67,8 @@ pub fn generate_onchain_swap_multiple_mints_instruction_v4(
         AccountMeta::new_readonly(associated_token_program_id, false), // 6. Associated Token program
     ];
     for mint_pool_data in token_pools {
+        let max_take= context.wali_config.bot.mint_max_pool;
+        let mut total_taked=0;
         let mut take_num=2;
         if batch_size>1 {
             take_num = 1;
@@ -80,6 +83,7 @@ pub fn generate_onchain_swap_multiple_mints_instruction_v4(
         accounts.push(AccountMeta::new(wallet_x_account, false));
      
         for pool in mint_pool_data.pump_pools.iter().take(take_num) {
+            total_taked+=1;
             accounts.push(AccountMeta::new_readonly(pump_program_id(), false));
             accounts.push(AccountMeta::new_readonly(pump_global_config, false));
             accounts.push(AccountMeta::new_readonly(pump_authority, false));
@@ -91,6 +95,7 @@ pub fn generate_onchain_swap_multiple_mints_instruction_v4(
         }
 
         for pair in mint_pool_data.dlmm_pairs.iter().take(take_num) {
+            total_taked+=1;
             accounts.push(AccountMeta::new_readonly(dlmm_program_id(), false));
             accounts.push(AccountMeta::new(dlmm_event_authority(), false)); // DLMM event authority
             accounts.push(AccountMeta::new(pair.pair, false));
@@ -101,10 +106,14 @@ pub fn generate_onchain_swap_multiple_mints_instruction_v4(
                 accounts.push(AccountMeta::new(*bin_array, false));
             }
         }
-        if batch_size>1{
+        if batch_size>1 || total_taked>max_take {
             continue;
         }
         for pool in mint_pool_data.raydium_pools.iter().take(take_num) {
+            if total_taked>=max_take {
+                continue;
+            }
+            total_taked+=1;
             accounts.push(AccountMeta::new_readonly(raydium_program_id(), false));
             accounts.push(AccountMeta::new_readonly(raydium_authority(), false)); // Raydium authority
             accounts.push(AccountMeta::new(pool.pool, false));
@@ -113,6 +122,10 @@ pub fn generate_onchain_swap_multiple_mints_instruction_v4(
         }
 
         for pool in mint_pool_data.raydium_cp_pools.iter().take(take_num) {
+            if total_taked>=max_take {
+                continue;
+            }
+            total_taked+=1;
             accounts.push(AccountMeta::new_readonly(raydium_cp_program_id(), false));
             accounts.push(AccountMeta::new_readonly(raydium_cp_authority(), false)); // Raydium CP authority
             accounts.push(AccountMeta::new(pool.pool, false));
@@ -123,6 +136,10 @@ pub fn generate_onchain_swap_multiple_mints_instruction_v4(
         }
 
         for pool in mint_pool_data.whirlpool_pools.iter().take(take_num) {
+            if total_taked>=max_take {
+                continue;
+            }
+            total_taked+=1;
             accounts.push(AccountMeta::new_readonly(whirlpool_program_id(), false));
             accounts.push(AccountMeta::new(pool.pool, false));
             accounts.push(AccountMeta::new(pool.oracle, false));
@@ -134,6 +151,10 @@ pub fn generate_onchain_swap_multiple_mints_instruction_v4(
         }
 
         for pool in mint_pool_data.raydium_clmm_pools.iter().take(take_num) {
+            if total_taked>=max_take {
+                continue;
+            }
+            total_taked+=1;
             accounts.push(AccountMeta::new_readonly(raydium_clmm_program_id(), false));
             accounts.push(AccountMeta::new(pool.pool, false));
             accounts.push(AccountMeta::new_readonly(pool.amm_config, false));
@@ -167,7 +188,11 @@ pub async fn pull_token_pools(
 ) -> Result<Vec<(String,MintPoolData, Vec<AddressLookupTableAccount>)>, BotError> {
     let mut token_pools: Vec<(String,MintPoolData, Vec<AddressLookupTableAccount>)> = vec![];
 
-    for x_mint in mint_config_list {            
+    for x_mint in mint_config_list {         
+        let wallet_x_account = get_or_create_ata_address(x_mint.mint.clone().parse().unwrap(),&context.payer_rc).await;
+        if wallet_x_account.is_err(){
+            continue;
+        }
         let pool_data = initialize_pool_data(
             &x_mint.mint,
             &context.payer_rc.pubkey().to_string(),

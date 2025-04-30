@@ -14,8 +14,9 @@ max_loop = 1000
 compute_unit_limit = 500000
 batch_size = 4
 max_concurrent_tasks = 50
-debug = true
+debug = false
 auto_lookup_table = false 
+mint_max_pool=4
 
 [spam]
 process_delay = 200
@@ -24,7 +25,7 @@ min_profit = 0
 [spam.compute_unit_price]
 from = 1000
 to = 500000
-count = 2
+count = 1
 strategy = "random"
 
 [wallet]
